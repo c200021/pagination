@@ -1,5 +1,4 @@
 <?php
-ini_set('display_errors', 1);
 require_once("functions.php");
 
 define('MAXITEM',5);    // 最大表示件数 
@@ -10,7 +9,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $page = 1;
 } elseif($_SERVER['REQUEST_METHOD'] === 'GET') {
     if(isset($_GET['page'])) {
-        $page = $_GET['page'];
+        $page = (int)$_GET['page'];
         $name = htmlspecialchars($_GET["name"], ENT_QUOTES, 'UTF-8');
     }else {
         $page = 1;
@@ -18,12 +17,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     }
     
     if($page > 1) {
-        $start = (int)$page * MAXITEM - MAXITEM;
+        $start = $page * MAXITEM - MAXITEM;
     }else {
         $start = 0;
     }
 }
-
+var_dump($page);
 $dbh = db_conn();
 $data = [];
 
@@ -104,8 +103,7 @@ try{
 ?>
 <?php
     for($x=1; $x<=$pagination; $x++) {
-
-        if($page  == $x) {
+        if($page == $x) {
             echo $x;
     } else {
         echo ' ';
