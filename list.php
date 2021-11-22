@@ -15,14 +15,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $page = 1;
         $name = htmlspecialchars($_GET["name"], ENT_QUOTES, 'UTF-8');
     }
-    
     if($page > 1) {
         $start = $page * MAXITEM - MAXITEM;
     }else {
         $start = 0;
     }
 }
-var_dump($page);
+
 $dbh = db_conn();
 $data = [];
 
